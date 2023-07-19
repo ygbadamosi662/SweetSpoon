@@ -1,0 +1,16 @@
+name: sweet_spoon_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - flask
+  - bcrypt
+  - marshmallow
+  - flask-marshmallow
+  - flask-jwt-extended
+  - sqlalchemy
+  - pip
+  - pip:
+    - python-dotenv
+    - mysql-connector-python
+    - mysqlclient
