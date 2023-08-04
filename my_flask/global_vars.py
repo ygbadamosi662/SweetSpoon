@@ -5,3 +5,6 @@ import bcrypt
 
 
 globalBcrypt = bcrypt
+
+# MODELS
+USER = 'user'

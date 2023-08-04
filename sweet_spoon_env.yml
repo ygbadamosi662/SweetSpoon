@@ -14,3 +14,4 @@ dependencies:
     - python-dotenv
     - mysql-connector-python
     - mysqlclient
+    - flask-sqlalchemy-profiler
