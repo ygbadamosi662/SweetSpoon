@@ -9,6 +9,7 @@ def getUserResponse(user: User) -> dict:
         userObj['name'] = user.first_name + " " + user.last_name
         userObj['email'] = user.email
         userObj['phone'] = user.phone
+        userObj['role'] = user.role.value
         userObj['gender'] = user.gender.value
 
         return userObj

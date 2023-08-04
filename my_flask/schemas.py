@@ -16,7 +16,6 @@ class UserSchema(Schema):
     email = fields.Email(required=True)
     password = fields.String(required=True)
     gender = fields.Enum(Gender)
-    dob = fields.Date("iso")
 
 user_schema = UserSchema()
 

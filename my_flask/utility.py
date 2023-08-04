@@ -6,16 +6,25 @@ from sqlalchemy.exc import SQLAlchemyError
 from flask_jwt_extended import get_jwt_identity
 from global_vars import USER
 from models.user import User
+from Repos.userRepo import user_repo
 
 
 class Utility:
     """
     Defines Utility class, just for utility functions
     """
-    session = None
+    _session = None
 
     def __init__(self):
-        self.session = storage.get_session()
+        self._session = storage.get_session()
+
+    def getInstanceFromJwt(self) -> User:
+        payload = get_jwt_identity()
+        try:
+            user = user_repo.findByEmail(payload['email'])
+            return user
+        except SQLAlchemyError:
+            raise SQLAlchemyError('fetching user by email from get_jwt_identity failed', 'from util')
 
     def persistModel(self, model):
         storage.new(model)
@@ -25,19 +34,18 @@ class Utility:
         storage.close()
 
     def validate_table_integrity_byEmail(self, email: str, model: str) -> bool:
-        # this method checks if a certain mapped instance already exists in its table, it only checks for schools, students and guardians table by their respective email for now
+        # this method checks if a certain mapped instance already exists in its table by its email
         if model == USER:
-            exists_query = self.session.query(exists().where(User.email == email))
+            exists_query = self._session.query(exists().where(User.email == email))
 
-
-        return self.session.scalar(exists_query)
+        return self._session.scalar(exists_query)
     
     def validate_table_integrity_byPhone(self, phone: str, model: str) -> bool:
-        # this method checks if a certain mapped instance already exists in its table, it only checks for school and guardians by their phone number table for now
+        # this method checks if a certain mapped instance already exists in its table by phone
         if model == USER:
-            exists_query = self.session.query(exists().where(User.phone == phone))
+            exists_query = self._session.query(exists().where(User.phone == phone))
 
-        return self.session.scalar(exists_query)
+        return self._session.scalar(exists_query)
 
 
 util = Utility()

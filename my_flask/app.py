@@ -1,6 +1,8 @@
 from flask import Flask, jsonify
 from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager
+from Blueprints.userController import user_bp
+from Blueprints.AdminController import admin_bp
 from config import Config
 from models import storage
 
@@ -13,7 +15,8 @@ ma = Marshmallow(app)
 
 path_prefix = '/api/v1'
 
-# app.register_blueprint(user_bp, url_prefix=path_prefix+'/user')
+app.register_blueprint(user_bp, url_prefix=path_prefix+'/user')
+app.register_blueprint(admin_bp, url_prefix=path_prefix+'/admin')
 
 
 # with app.app_context():

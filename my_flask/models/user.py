@@ -25,11 +25,13 @@ class User(BaseModel, Base):
     """
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(128))
+    first_name: Mapped[str] = mapped_column(String(128))
+    last_name: Mapped[str] = mapped_column(String(128))
     email: Mapped[str] = mapped_column(String(128), nullable=False, unique=True)
-    phone: Mapped[str] = mapped_column(String(128), nullable=False, unique=True)
+    phone: Mapped[str] = mapped_column(String(128), nullable=False) #this will be set unique=True eventually
     password: Mapped[str] = mapped_column(String(128), nullable=False)
     gender: Mapped[Gender]
+    dob = mapped_column(Date)
     role: Mapped[Role]
 
     
