@@ -27,6 +27,7 @@ app.register_blueprint(admin_bp, url_prefix=path_prefix+'/admin')
 def home():
     # session = storage.get_session()
     # storage.deleteAll()
+    # storage.close()
     # session.query(Student).delete()
     # session.commit()
     return jsonify("welcome home"), 200

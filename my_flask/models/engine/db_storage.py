@@ -4,6 +4,11 @@ from os import getenv
 from dotenv import load_dotenv, find_dotenv
 from models.base_model import Base
 from models.user import User
+from models.account import Account
+from models.food import Food
+from models.order import Order
+from models.subject import Subject
+from models.transaction import Transaction
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker

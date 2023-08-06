@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """Defines the User class."""
 from models.base_model import BaseModel, Base
-from sqlalchemy import ForeignKey, Date
+import uuid
+from sqlalchemy import Date
 from sqlalchemy import String
-from sqlalchemy import Integer
 from global_vars import globalBcrypt
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from Enums.gender import Gender
@@ -24,7 +24,7 @@ class User(BaseModel, Base):
         role: (sqlalchemy Enum): The user's role
     """
     __tablename__ = "users"
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=str(uuid.uuid4()), unique=True)
     first_name: Mapped[str] = mapped_column(String(128))
     last_name: Mapped[str] = mapped_column(String(128))
     email: Mapped[str] = mapped_column(String(128), nullable=False, unique=True)
@@ -33,6 +33,9 @@ class User(BaseModel, Base):
     gender: Mapped[Gender]
     dob = mapped_column(Date)
     role: Mapped[Role]
+
+    orders = relationship("Order", back_populates="user")
+    accounts = relationship("Account", back_populates="user")
 
     
     __mapper_args__ = {
